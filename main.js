@@ -1,19 +1,40 @@
 const notifier = document.querySelector('#notifier');
 
-(async () => {
-    const result = await Notification.requestPermission()
+class Notifier {
+    icon
+    image
+    notifications = []
+    
+    constructor() {
+        this.icon = 'images/icon_notification.png'
+        this.image = 'images/icon_notification.png'
+        this.getPermissions()
+    }
+    
+    async getPermissions(){
+        this.permission = await Notification.requestPermission()
+            .finally(() => console.log(`required permissions`))
+    }
 
-    console.log(result)
-})()
+    notify(title, body) {
+        console.log('notify', title, body)
+        if(!this.permission) return
+        const icon = this.icon
+        const image = this.image
+
+        const notification = new Notification(title, { body, icon, image })
+        this.notifications.push(notification)
+    }
+}
+
+const Not = new Notifier()
+
+const notificationContent = [
+    { title: 'Runa Forjada', body: 'Sua runa comun foi criada' },
+    { title: 'Expedição gold concluída', body: 'Expedição finalizada! pegue seus prêmios' },
+]
 
 notifier.addEventListener('click', event => {
-
-    const notification = new Notification('minha notificacao', {
-        body: 'Aqui é o body da minha notificacao',
-        icon: 'images/icon_notification.png',
-        image: 'images/icon_notification.png',
-        tag: 'notification tag'
-    })
-    console.log('click', notification)
-
+    notificationContent
+        .forEach(({ title, body }) => Not.notify(title, body))
 })
