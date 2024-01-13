@@ -12,7 +12,7 @@ const Not = new Notifier()
 notifier.addEventListener('click', () => {
     let delay = 0
     for (const { body, title } of notificationContent) {
-
+        alert('send notification')
         setTimeout(() => Not.notify(title, body), 5000 * delay++)
     }
 
