@@ -1,5 +1,3 @@
-const notifier = document.querySelector('#notifier');
-
 class Notifier {
     icon
     image
@@ -27,14 +25,4 @@ class Notifier {
     }
 }
 
-const Not = new Notifier()
-
-const notificationContent = [
-    { title: 'Runa Forjada', body: 'Sua runa comun foi criada' },
-    { title: 'Expedição gold concluída', body: 'Expedição finalizada! pegue seus prêmios' },
-]
-
-notifier.addEventListener('click', event => {
-    notificationContent
-        .forEach(({ title, body }) => Not.notify(title, body))
-})
+export { Notifier }
